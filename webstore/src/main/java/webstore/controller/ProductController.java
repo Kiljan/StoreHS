@@ -4,10 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.MatrixVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import webstore.domain.Product;
+import webstore.service.OrderService;
 import webstore.service.ProductService;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +23,9 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private OrderService orderService;
 
 	@RequestMapping
 	public String list(Model model) {
@@ -55,6 +63,21 @@ public class ProductController {
 		return "product";
 	}
 	
+	/*
+	 * Orders set
+	 * */
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+	public ModelAndView updateProductOrderById(@PathVariable int id){		
+		Product product = productService.getProductById(id);
+		return new ModelAndView("editProductOrder", "prodOrd", product);
+	}
+	
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
+	public ModelAndView updateProductOrderByIdSave(@ModelAttribute("prodOrd") Product product, @PathVariable int id) {
+		ModelAndView mav = new ModelAndView("product");
+		orderService.updateOrders(product);
+		return mav;
+	}
 	
 	
 }

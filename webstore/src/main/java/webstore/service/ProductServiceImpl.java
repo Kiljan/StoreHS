@@ -43,6 +43,10 @@ public class ProductServiceImpl implements ProductService{
 		return productRepository.getProductByFilter(filterParams);
 	}
 	
+	@Transactional
+	public void updateOrders(Product product) {
+		productRepository.updateOrders(product);
+	}
 	
 
 }

@@ -15,7 +15,7 @@ public class Product {
 	
 	@Id
     @GeneratedValue
-	private Integer productId;
+	private int productId;
 	
 	private String category;
 	private String name;
