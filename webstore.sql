@@ -1,7 +1,7 @@
 use jpa;
 
 -- CREATE TABLE `storeProducts` (
---   `productId` varchar(250) NOT NULL,
+--   `productId` int NOT NULL,
 --   `name` varchar(250) NOT NULL,
 --   `unitPrice` DECIMAL NOT NULL,
 --   `description` varchar(1000) NOT NULL,
@@ -10,21 +10,21 @@ use jpa;
 --   `unitsInStock` DECIMAL NOT NULL,
 --   `unitsInOrder` DECIMAL NOT NULL,
 --   `discontinued` BIT NOT NULL,
---   `condition` varchar(250) NOT NULL,
+--   `conditionProduct` varchar(250) NOT NULL,
 --   PRIMARY KEY (`productId`)
 -- ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- 
 
 -- insert into storeProducts (`productId`, `name`, `unitPrice`, `description`, `manufacturer`, `category`, `unitsInStock`, `unitsInOrder`, `discontinued`, `condition` ) values (
--- 'P1234', 'iPhone 5s', 500, 'Apple iPhone 5s smartphone with 4.00-inch 640x1136 display and 8-megapixel rear camera',
+-- 1234, 'iPhone 5s', 500, 'Apple iPhone 5s smartphone with 4.00-inch 640x1136 display and 8-megapixel rear camera',
 --  'Apple', 'Smart Phone', 1000, 0, 0, 1);
  
 --  insert into storeProducts (`productId`, `name`, `unitPrice`, `description`, `manufacturer`, `category`, `unitsInStock`, `unitsInOrder`, `discontinued`, `condition` ) values (
--- 'P1235', 'Dell Inspirons', 700, 'Dell Inspiron 14-inch Laptop (Black) with 3rd Generation Intel Core processors',
+-- 1235, 'Dell Inspirons', 700, 'Dell Inspiron 14-inch Laptop (Black) with 3rd Generation Intel Core processors',
 --  'Dell', 'Laptop', 1000, 0, 0, 1);
 
 --  insert into storeProducts (`productId`, `name`, `unitPrice`, `description`, `manufacturer`, `category`, `unitsInStock`, `unitsInOrder`, `discontinued`, `condition` ) values (
--- 'P1236', 'Dell Inspirons', 700, 'Google Nexus 7 is the lightest 7 inch tablet With a quad-core Qualcomm SnapdragonTM S4 Pro processor',
+-- 1236, 'Dell Inspirons', 700, 'Google Nexus 7 is the lightest 7 inch tablet With a quad-core Qualcomm SnapdragonTM S4 Pro processor',
 --  'Nexus', 'Tablet', 1000, 0, 0, 1);
 
 
@@ -44,20 +44,6 @@ use jpa;
 
 -- insert into clients ( `customerId`, `name`, `address`, `noOfOrdersMade`) values (
 -- 'Maciek1234', 'Maciek Kowalski', 'Melonowska Bydgoszcz', 100);
-
-
-
-
-CREATE TABLE `teams` (
-  `id` int(6) NOT NULL AUTO_INCREMENT,
-  `name` varchar(40) NOT NULL,
-  `rating` int(6) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
-
-
-select * from teams
-
 
 
 
