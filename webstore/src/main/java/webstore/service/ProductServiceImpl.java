@@ -14,38 +14,40 @@ import webstore.domain.Product;
 import webstore.domain.repository.ProductRepository;
 
 @Service
+@Transactional
 public class ProductServiceImpl implements ProductService{
 
 	@Autowired
 	private ProductRepository productRepository;
 	
 	@Override
-	@Transactional
 	public List<Product> getAllProducts() {
 		return productRepository.getAllProducts();
 	}
 
 	@Override
-	@Transactional
 	public Product getProductById(int productId) {
 		return productRepository.getProductByID(productId);
 	}
 
 	@Override
-	@Transactional
 	public List<Product> getProductByCategory(String category) {
 		return productRepository.getProductByCategory(category);
 	}
 
 	@Override
-	@Transactional
 	public Set<Product> getProductByFilter(Map<String, List<String>> filterParams) {
 		return productRepository.getProductByFilter(filterParams);
 	}
 	
-	@Transactional
+	
 	public void updateOrders(Product product) {
 		productRepository.updateOrders(product);
+	}
+
+	@Override
+	public void addProduct(Product product) {
+		productRepository.addProduct(product);
 	}
 	
 

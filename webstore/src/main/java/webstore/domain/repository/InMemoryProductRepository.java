@@ -67,10 +67,14 @@ public class InMemoryProductRepository implements ProductRepository {
 	@Override
 	public void updateOrders(Product product) {
 		Product productToUpdate = getProductByID(product.getProductId());
-		long unitsInStock = product.getUnitsInStock();
-		long unitsInOrder = product.getUnitsInOrder();
-		long value = unitsInStock - unitsInOrder;
+		long value = product.getUnitsInStock() - product.getUnitsInOrder();
 		productToUpdate.setUnitsInStock(value);
 		getCurrentSession().update(productToUpdate);
+	}
+
+	@Override
+	public void addProduct(Product product) {
+		getCurrentSession().save(product);
+		
 	}
 }

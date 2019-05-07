@@ -36,7 +36,7 @@
 						</p>
 						<h4>${products.unitPrice}	USD</h4>
 						<p>
-							<a href="#" class="btn btn-warning btn-large">
+							<a href="${pageContext.request.contextPath}/products/edit/${products.productId}" class="btn btn-warning btn-large">
 								<span class="glyphicon-shopping-cart glyphicon"></span> Order Now
 							</a>
 							<a	href="<spring:url value="/products" />" class="btn btn-default">

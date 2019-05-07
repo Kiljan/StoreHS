@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import webstore.domain.Product;
-import webstore.service.OrderService;
 import webstore.service.ProductService;
 import java.util.List;
 import java.util.Map;
@@ -24,9 +23,6 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 	
-	@Autowired
-	private OrderService orderService;
-
 	@RequestMapping
 	public String list(Model model) {
 		model.addAttribute("products", productService.getAllProducts());
@@ -73,17 +69,30 @@ public class ProductController {
 	}
 	
 	@RequestMapping(value = "/edit/{id}", method = RequestMethod.POST)
-	public ModelAndView updateProductOrderByIdSave(@ModelAttribute("prodOrd") Product product, @PathVariable int id) {
-		ModelAndView mav = new ModelAndView("product");
-		orderService.updateOrders(product);
-		return mav;
+	public String updateProductOrderByIdSave(@ModelAttribute("prodOrd") Product product) {
+		productService.updateOrders(product);
+		return "redirect:/products";
+	}
+	
+	/*
+	 * Add product 
+	 * Elier only for admin
+	 * */
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public String getAddNewProductForm(Model model) {
+		Product newProduct = new Product();
+		model.addAttribute("newProduct", newProduct);
+		return "addProduct";
+	}
+	
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
+	public String processAddNewProductForm(@ModelAttribute("newProduct") Product product) {
+		productService.addProduct(product);
+		return "redirect:/products";
 	}
 	
 	
 }
-
-
-
 
 
 

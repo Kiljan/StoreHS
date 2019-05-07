@@ -10,8 +10,8 @@ public class HomeControler {
 	@RequestMapping("/")
 	public String welcome(Model model) {
 		
-		model.addAttribute("greeting", "Welcome to web strore");
-		model.addAttribute("tagline", "First paragraph ever");
-		return "welcome";
+//		model.addAttribute("greeting", "Welcome to web strore");
+//		model.addAttribute("tagline", "First paragraph ever");
+		return "redirect:/products";
 	}
 }
