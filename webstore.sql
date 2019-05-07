@@ -1,7 +1,7 @@
 use jpa;
 
 -- CREATE TABLE `storeProducts` (
---   `productId` int NOT NULL,
+--   `productId` int NOT NULL AUTO_INCREMENT,
 --   `name` varchar(250) NOT NULL,
 --   `unitPrice` DECIMAL NOT NULL,
 --   `description` varchar(1000) NOT NULL,
