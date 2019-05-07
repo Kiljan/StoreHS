@@ -46,6 +46,13 @@ use jpa;
 -- 'Maciek1234', 'Maciek Kowalski', 'Melonowska Bydgoszcz', 100);
 
 
+CREATE TABLE `authorized` (
+  `id` int NOT NULL,
+  `username` varchar(250) NOT NULL,
+  `password` varchar(250) NOT NULL,
+  `role` varchar(250) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
  
  
