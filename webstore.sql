@@ -55,4 +55,9 @@ CREATE TABLE `authorized` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
  
- 
+INSERT INTO jpa.authorized
+(id, username, password, `role`) VALUES(1, 'Admin', 'admin123455', 'ADMIN');
+
+
+select * from jpa.authorized
+
