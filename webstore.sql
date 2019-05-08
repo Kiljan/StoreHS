@@ -47,20 +47,17 @@ use jpa;
 
 
 CREATE TABLE `authorized` (
-  `id` int NOT NULL,
   `username` varchar(250) NOT NULL,
   `password` varchar(250) NOT NULL,
   `role` varchar(250) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
- 
 INSERT INTO jpa.authorized
-(id, username, password, `role`) VALUES(1, 'Admin', 'admin123455', 'ADMIN');
+(username, password, `role`) VALUES('admin', 'admin12345', 'ADMIN');
 
 INSERT INTO jpa.authorized
-(id, username, password, `role`) VALUES(2, 'user', 'user123455', 'USER');
+(username, password, `role`) VALUES('user', 'user12345', 'USER');
 
 
 select * from jpa.authorized
-
