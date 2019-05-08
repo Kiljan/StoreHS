@@ -58,6 +58,9 @@ CREATE TABLE `authorized` (
 INSERT INTO jpa.authorized
 (id, username, password, `role`) VALUES(1, 'Admin', 'admin123455', 'ADMIN');
 
+INSERT INTO jpa.authorized
+(id, username, password, `role`) VALUES(2, 'user', 'user123455', 'USER');
+
 
 select * from jpa.authorized
 
