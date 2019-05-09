@@ -1,20 +1,26 @@
 package webstore.config;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
+import org.springframework.http.CacheControl;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
@@ -76,6 +82,13 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		transactionManager.setSessionFactory(sessionFactory().getObject());
 		return transactionManager;
 	}
+	
+	@Bean
+	public MessageSource messageSource() {
+		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+		messageSource.setBasename("messages");
+		return messageSource;
+		}
 
 	@Bean
 	public UrlBasedViewResolver setupViewResolver() {
@@ -85,6 +98,25 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		resolver.setViewClass(JstlView.class);
 		return resolver;
 	}
+	
+	/*for additional resources in spring security 5.0*/
+	 @Override
+	   public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
+	      // Register resource handler for CSS and JS
+	      registry.addResourceHandler("/resources/**").addResourceLocations("classpath:/statics/")
+	            .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
+
+	      // Register resource handler for images
+	      registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/images/")
+	            .setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
+	   }
+	
+	/*for login page in web security*/
+	@Override
+	public void addViewControllers(ViewControllerRegistry registry) {
+		registry.addViewController("/login").setViewName("login");
+}
 	
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
