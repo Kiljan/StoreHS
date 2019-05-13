@@ -35,6 +35,9 @@
 				<div class="thumbnail">
 					<div class="caption">
 						<h3>${product.name}</h3>
+						<div class="col-md-5">
+							<img src="<c:url value="/images/bat.jpg"></c:url>"alt="image" style ="width:100%"/>
+						</div>
 						<p>${product.description}</p>
 						<p>${product.unitPrice}	USD</p>
 						<p>Available ${product.unitsInStock} units in stock</p>

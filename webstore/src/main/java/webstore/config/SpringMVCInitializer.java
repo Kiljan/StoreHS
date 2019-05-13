@@ -11,8 +11,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 
 public class SpringMVCInitializer implements WebApplicationInitializer {
 
-	public void onStartup(ServletContext servletContext)
-			throws ServletException {
+	public void onStartup(ServletContext servletContext) throws ServletException {
 		AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
 		ctx.register(WebConfig.class);
 		servletContext.addListener(new ContextLoaderListener(ctx));

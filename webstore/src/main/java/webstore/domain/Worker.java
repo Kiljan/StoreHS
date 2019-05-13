@@ -11,21 +11,20 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 @Table(name = "authorized")
 public class Worker {
-	
+
 	@Id
 	@GeneratedValue(generator = "uuid")
 	@GenericGenerator(name = "uuid", strategy = "uuid2")
 	@Column(name = "username")
 	private String username;
-	
+
 	private String password;
 	private String role;
-	
 
 	public Worker() {
 
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}

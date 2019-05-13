@@ -9,11 +9,11 @@ import webstore.domain.repository.WorkerDao;
 
 @Service
 @Transactional
-public class WorkerServiceImpl implements WorkerService{
+public class WorkerServiceImpl implements WorkerService {
 
 	@Autowired
 	private WorkerDao workerDao;
-	
+
 	@Override
 	public Worker selectOne(String username) {
 		return workerDao.selectOne(username);

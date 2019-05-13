@@ -8,12 +8,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-
 import webstore.domain.Worker;
 
-
 public class UserDetailsServiceImp implements UserDetailsService {
-	
+
 	@Autowired
 	private WorkerService workerService;
 
@@ -36,6 +34,5 @@ public class UserDetailsServiceImp implements UserDetailsService {
 
 		return builder.build();
 	}
-
 
 }

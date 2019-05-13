@@ -6,14 +6,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+
 @Entity
 @Table(name = "storeProducts")
 public class Product {
-	
+
 	@Id
-    @GeneratedValue
+	@GeneratedValue
 	private int productId;
-	
+
 	private String category;
 	private String name;
 	private BigDecimal unitPrice;
@@ -21,13 +22,13 @@ public class Product {
 	private String manufacturer;
 	private long unitsInStock;
 	private long unitsInOrder;
-	private	boolean	discontinued;
-	private	String	conditionProduct;
-	
+	private boolean discontinued;
+	private String conditionProduct;
+
 	public Product() {
 	}
-	
-	public Product(int productId, String	name, BigDecimal unitPrice) {
+
+	public Product(int productId, String name, BigDecimal unitPrice) {
 		this.productId = productId;
 		this.name = name;
 		this.unitPrice = unitPrice;
@@ -139,7 +140,5 @@ public class Product {
 	public String toString() {
 		return "Product [productId=" + productId + ",name=" + name + "]";
 	}
-	
+
 }
-
-

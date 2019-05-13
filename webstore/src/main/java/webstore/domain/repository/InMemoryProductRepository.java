@@ -19,7 +19,7 @@ public class InMemoryProductRepository implements ProductRepository {
 	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();
 	}
-	
+
 	@Override
 	public List<Product> getAllProducts() {
 		return getCurrentSession().createQuery("from Product").list();
@@ -32,7 +32,7 @@ public class InMemoryProductRepository implements ProductRepository {
 
 	@Override
 	public List<Product> getProductByCategory(String category) {
-		return getCurrentSession().createQuery("from Product where category = '"+ category + "'").list();
+		return getCurrentSession().createQuery("from Product where category = '" + category + "'").list();
 	}
 
 	@Override
@@ -75,6 +75,6 @@ public class InMemoryProductRepository implements ProductRepository {
 	@Override
 	public void addProduct(Product product) {
 		getCurrentSession().save(product);
-		
+
 	}
 }

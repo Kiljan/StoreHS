@@ -85,6 +85,7 @@
 			<artifactId>javax.annotation-api</artifactId>
 			<version>1.3.1</version>
 		</dependency>
+
 		<!-- And if someone got Centos7 -->
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>
@@ -113,6 +114,8 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>3.1.3.RELEASE</version>
 		</dependency>
-	</dependencies>
+
+		<!-- For xml and json file -->
+		</dependencies>
 
 </project>

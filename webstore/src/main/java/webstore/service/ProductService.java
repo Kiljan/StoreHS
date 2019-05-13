@@ -9,10 +9,15 @@ import webstore.domain.Product;
 public interface ProductService {
 
 	List<Product> getAllProducts();
+
 	Product getProductById(int productId);
+
 	List<Product> getProductByCategory(String category);
-	Set<Product> getProductByFilter (Map<String, List<String>> filterParams);
+
+	Set<Product> getProductByFilter(Map<String, List<String>> filterParams);
+
 	public void updateOrders(Product product);
-	void addProduct (Product product);
+
+	void addProduct(Product product);
 
 }

@@ -15,7 +15,7 @@ import webstore.service.UserDetailsServiceImp;
 
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-	
+
 	@Bean
 	public UserDetailsService userDetailsService() {
 		return new UserDetailsServiceImp();
@@ -32,25 +32,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 	@Override
-	  protected void configure(HttpSecurity http) throws Exception {
-		
+	protected void configure(HttpSecurity http) throws Exception {
+
 		CharacterEncodingFilter filter = new CharacterEncodingFilter();
 		filter.setEncoding("UTF-8");
-        filter.setForceEncoding(true);
-		http
-		.addFilterBefore(filter,CsrfFilter.class);
+		filter.setForceEncoding(true);
+		http.addFilterBefore(filter, CsrfFilter.class);
 
-		
-	    http
-	    .authorizeRequests()
-	    .anyRequest().hasAnyRole("ADMIN", "USER")
-	    .and()
-	    .formLogin().and()
-	    .rememberMe()
-	    .tokenRepository(new InMemoryTokenRepositoryImpl())
-	    .tokenValiditySeconds(2419200)
-	    .key("workerKey")
-	    .and()
-	    .logout().permitAll().logoutSuccessUrl("/login");
-	  }
+		http.authorizeRequests().anyRequest().hasAnyRole("ADMIN", "USER").and().formLogin().and().rememberMe()
+				.tokenRepository(new InMemoryTokenRepositoryImpl()).tokenValiditySeconds(2419200).key("workerKey").and()
+				.logout().permitAll().logoutSuccessUrl("/login");
+	}
 }
