@@ -9,6 +9,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import webstore.domain.Product;
+import webstore.exception.ProductNotFoundException;
 
 @Repository
 public class InMemoryProductRepository implements ProductRepository {
@@ -27,7 +28,13 @@ public class InMemoryProductRepository implements ProductRepository {
 
 	@Override
 	public Product getProductByID(int productId) {
-		return (Product) getCurrentSession().get(Product.class, productId);
+		
+		Product pr = (Product) getCurrentSession().get(Product.class, productId);
+		
+		if(pr == null) 
+			throw new ProductNotFoundException(productId);
+		
+		return pr;
 	}
 
 	@Override

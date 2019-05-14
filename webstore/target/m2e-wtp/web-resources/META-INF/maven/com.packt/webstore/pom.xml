@@ -115,7 +115,13 @@
 			<version>3.1.3.RELEASE</version>
 		</dependency>
 
-		<!-- For xml and json file -->
-		</dependencies>
+		<!-- For Interceptor -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.12</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
 
 </project>

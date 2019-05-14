@@ -3,6 +3,7 @@ package webstore.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,9 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import webstore.domain.Product;
+import webstore.exception.NoProductsFoundUnderCategoryException;
+import webstore.exception.ProductNotFoundException;
 import webstore.service.ProductService;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping("/products")
@@ -37,7 +42,13 @@ public class ProductController {
 
 	@RequestMapping("/{category}")
 	public String getProductsByCategory(Model model, @PathVariable("category") String productCategory) {
-		model.addAttribute("products", productService.getProductByCategory(productCategory));
+		
+		List<Product> products = productService.getProductByCategory(productCategory);
+		if(products == null || products.isEmpty()) {
+			throw new  NoProductsFoundUnderCategoryException();
+		}
+		
+		model.addAttribute("products", products);
 		return "products";
 	}
 
@@ -78,7 +89,7 @@ public class ProductController {
 	}
 
 	/*
-	 * Add product Elier only for admin
+	 * Add product == only for admin
 	 */
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String getAddNewProductForm(Model model) {
@@ -92,5 +103,18 @@ public class ProductController {
 		productService.addProduct(product);
 		return "redirect:/products";
 	}
+	
+	/*
+	 * Error handling on missing products
+	 * */
 
+	@ExceptionHandler(ProductNotFoundException.class)
+	public	ModelAndView handleError(HttpServletRequest req, ProductNotFoundException exception) {
+			ModelAndView mav = new ModelAndView();
+			mav.addObject("invalidProductId", exception.getProductId());
+			mav.addObject("exception", exception);
+			mav.addObject("url",req.getRequestURL()+"?"+req.getQueryString());
+			mav.setViewName("productNotFound");
+			return	mav;
+	}
 }
