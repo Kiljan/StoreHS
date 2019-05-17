@@ -69,14 +69,14 @@ select * from jpa.authorized
 ==================================================================================================================
 
 
+--for old testing
+--CREATE TABLE `cartitem` (
+--  `cartId` varchar(250) NOT NULL,
+--  `grandTotal` DECIMAL NOT NULL,
+--  PRIMARY KEY (`cartId`)
+--) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `cartitem` (
-  `cartId` varchar(250) NOT NULL,
-  `grandTotal` DECIMAL NOT NULL,
-  PRIMARY KEY (`cartId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--SELECT * FROM jpa.cartitem;
 
-SELECT * FROM jpa.cartitem;
-
-INSERT INTO jpa.cartitem (`cartId`, `grandTotal`) VALUES ('P12', 1)
+--INSERT INTO jpa.cartitem (`cartId`, `grandTotal`) VALUES ('P12', 1)
