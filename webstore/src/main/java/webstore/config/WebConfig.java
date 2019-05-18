@@ -6,6 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -16,7 +17,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
-
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
@@ -28,6 +28,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.util.UrlPathHelper;
+
+import webstore.interceptor.AuditingInterceptor;
+import webstore.interceptor.PerformanceMonitorInterceptor;
 
 @Configuration
 @ComponentScan("webstore")
@@ -47,7 +50,9 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Resource
 	private Environment env;
+	
 
+	/* for hibernate and data source*/
 	@Bean
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -83,6 +88,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		return transactionManager;
 	}
 
+	/* for additional massages */
 	@Bean
 	public MessageSource messageSource() {
 		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
@@ -90,6 +96,25 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		messageSource.addBasenames("log4j");
 		return messageSource;
 	}
+	
+	/*
+     * Configure View resolver
+     */	
+    @Bean
+    public ViewResolver jspViewResolver() {
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setViewClass(JstlView.class);
+        viewResolver.setPrefix("/WEB-INF/views/");
+        viewResolver.setSuffix(".jsp");
+        return viewResolver;
+    }
+        
+    /* for logging purpuse*/
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new PerformanceMonitorInterceptor());
+        registry.addInterceptor(new AuditingInterceptor());
+    }
 	
 	/* for additional resources in spring security 5.0 */
 	@Override
@@ -104,18 +129,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 				.setCacheControl(CacheControl.maxAge(2, TimeUnit.HOURS).cachePublic());
 	}
 
-	/*
-     * Configure View resolver
-     */	
-    @Bean
-    public ViewResolver jspViewResolver() {
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setViewClass(JstlView.class);
-        viewResolver.setPrefix("/WEB-INF/views/");
-        viewResolver.setSuffix(".jsp");
-        return viewResolver;
-    }
-
 	/* for login page in web security */
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
@@ -129,9 +142,4 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		configurer.setUrlPathHelper(urlPathHelper);
 	}
 	
-//	/* for logging purpuse */
-//	@Bean
-//    public PerformanceMonitorInterceptor performanceMonitorInterceptor() {
-//        return new PerformanceMonitorInterceptor();
-//    }
 }

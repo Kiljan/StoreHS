@@ -1,5 +1,6 @@
 package webstore.domain.repository;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ public class InMemoryProductRepository implements ProductRepository {
 		return sessionFactory.getCurrentSession();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Product> getAllProducts() {
 		return getCurrentSession().createQuery("from Product").list();
@@ -37,6 +39,7 @@ public class InMemoryProductRepository implements ProductRepository {
 		return pr;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Product> getProductByCategory(String category) {
 		return getCurrentSession().createQuery("from Product where category = '" + category + "'").list();
@@ -45,6 +48,7 @@ public class InMemoryProductRepository implements ProductRepository {
 	@Override
 	public Set<Product> getProductByFilter(Map<String, List<String>> filterParams) {
 
+		@SuppressWarnings("unchecked")
 		List<Product> listOfProducts = getCurrentSession().createQuery("from Product").list();
 		Set<Product> productByBrand = new HashSet<Product>();
 		Set<Product> productByCategory = new HashSet<Product>();
@@ -78,10 +82,19 @@ public class InMemoryProductRepository implements ProductRepository {
 		productToUpdate.setUnitsInStock(value);
 		getCurrentSession().update(productToUpdate);
 	}
+	
+	@Override
+	public void updateTotalPrice(Product product, BigDecimal quantity) {
+		Product productToUpdate = getProductByID(product.getProductId());
+		BigDecimal value = product.getUnitPrice().multiply(quantity);
+		productToUpdate.setUnitPrice(value);
+		getCurrentSession().update(productToUpdate);
+	}
 
 	@Override
 	public void addProduct(Product product) {
 		getCurrentSession().save(product);
 
 	}
+
 }

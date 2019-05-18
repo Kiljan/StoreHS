@@ -37,7 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		CharacterEncodingFilter filter = new CharacterEncodingFilter();
 		filter.setEncoding("UTF-8");
 		filter.setForceEncoding(true);
-		http.addFilterBefore(filter, CsrfFilter.class);
+		//for rest exercise i must disable csrf
+		//http.addFilterBefore(filter, CsrfFilter.class);
+		http.csrf().disable();
 
 		http.authorizeRequests().anyRequest().hasAnyRole("ADMIN", "USER").and().formLogin().and().rememberMe()
 				.tokenRepository(new InMemoryTokenRepositoryImpl()).tokenValiditySeconds(2419200).key("workerKey").and()

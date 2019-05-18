@@ -38,6 +38,9 @@
 				<div class="form-group">
 					<label class="control-label col-lg-2 col-lg-2" for="name"><spring:message
 							code="addProduct.form.name.label" /></label>
+					<div>
+						<form:errors path="name" cssClass="text-danger" element="div"/>	
+					</div>
 					<div class="col-lg-10">
 						<form:input id="name" path="name" type="text"
 							class="form:input-large" />
@@ -47,9 +50,12 @@
 				<div class="form-group">
 					<label class="control-label col-lg-2 col-lg-2" for="unitPrice"><spring:message
 							code="addProduct.form.unitPrice.label" /></label>
+					<div>
+						<form:errors path="unitPrice" cssClass="text-danger" element="div"/>
+					</div>
 					<div class="col-lg-10">
 						<form:input id="unitPrice" path="unitPrice" type="text"
-							class="form:input-large" />
+							class="form:input-large" />		
 					</div>
 				</div>
 
@@ -124,6 +130,9 @@
 					<div class="col-lg-offset-2	col-lg-10">
 						<input type="submit" id="btnAdd" class="btn	btn-primary"
 							value="Add" />
+						<a	href="<spring:url value="/products" />" class="btn btn-default">
+							<span class="glyphicon-hand-left glyphicon"></span> Back
+						</a>
 					</div>
 				</div>
 			</fieldset>

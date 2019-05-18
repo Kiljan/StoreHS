@@ -1,5 +1,6 @@
 package webstore.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -45,6 +46,12 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public void addProduct(Product product) {
 		productRepository.addProduct(product);
+	}
+
+	@Override
+	public void updateTotalPrice(Product product, BigDecimal quantity) {
+		productRepository.updateTotalPrice(product, quantity);
+		
 	}
 
 }

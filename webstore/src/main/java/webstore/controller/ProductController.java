@@ -3,8 +3,8 @@ package webstore.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.MatrixVariable;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,10 +16,12 @@ import webstore.domain.Product;
 import webstore.exception.NoProductsFoundUnderCategoryException;
 import webstore.exception.ProductNotFoundException;
 import webstore.service.ProductService;
+
+
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/products")
@@ -27,7 +29,7 @@ public class ProductController {
 
 	@Autowired
 	private ProductService productService;
-
+	
 	@RequestMapping
 	public String list(Model model) {
 		model.addAttribute("products", productService.getAllProducts());
@@ -54,15 +56,15 @@ public class ProductController {
 
 	/*
 	 * Example url
-	 * http://localhost:8080/webstore/products/filter/ByCriteria;brand=Nexus;
-	 * category=Tablet
+	 * http://localhost:8080/webstore/products/filter/ByCriteria;brand=Nexus;category=Tablet
+	 * Dont whan to use especialy in spring security
 	 */
-	@RequestMapping("/filter/{ByCriteria}")
-	public String getProductByFilter(Model model,
-			@MatrixVariable(pathVar = "ByCriteria") Map<String, List<String>> filterParams) {
-		model.addAttribute("products", productService.getProductByFilter(filterParams));
-		return "products";
-	}
+		//	@RequestMapping("/filter/{ByCriteria}")
+		//	public String getProductByFilter(Model model,
+		//			@MatrixVariable(pathVar = "ByCriteria") Map<String, List<String>> filterParams) {
+		//		model.addAttribute("products", productService.getProductByFilter(filterParams));
+		//		return "products";
+		//	}
 
 	/*
 	 * Example url http://localhost:8080/webstore/products/product?id=P1234
@@ -99,7 +101,13 @@ public class ProductController {
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String processAddNewProductForm(@ModelAttribute("newProduct") Product product) {
+	public String processAddNewProductForm(@ModelAttribute("newProduct") @Valid Product product, 
+			Errors errors) {
+		
+		
+		if(errors.hasErrors())
+			return "addProduct";
+		
 		productService.addProduct(product);
 		return "redirect:/products";
 	}
@@ -117,4 +125,5 @@ public class ProductController {
 			mav.setViewName("productNotFound");
 			return	mav;
 	}
+	
 }

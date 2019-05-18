@@ -1,5 +1,6 @@
 package webstore.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,6 +19,7 @@ public interface ProductService {
 
 	public void updateOrders(Product product);
 
+	void updateTotalPrice(Product product, BigDecimal quantity);
+	
 	void addProduct(Product product);
-
 }

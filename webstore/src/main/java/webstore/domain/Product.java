@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.*;
 
 @Entity
 @Table(name = "storeProducts")
@@ -15,7 +16,13 @@ public class Product {
 	private int productId;
 
 	private String category;
+	
+	@Size(min=4, max=50, message="{Size.Product.name.validation}")
 	private String name;
+	
+	@Min(value=0, message="Min.Product.unitPrice.validation}")
+	@Digits(integer=8, fraction=2, message="{Digits.Product.unitPrice.validation}")
+	@NotNull(message= "{NotNull.Product.unitPrice.validation}")
 	private BigDecimal unitPrice;
 	private String description;
 	private String manufacturer;
